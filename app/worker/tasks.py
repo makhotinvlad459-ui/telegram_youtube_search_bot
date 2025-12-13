@@ -1,11 +1,7 @@
-import asyncio
 import logging
 import time
 
-from celery import current_task
 
-from app.crud.course import enroll_user_to_course, get_course_by_id
-from app.crud.user import get_user_by_id
 from app.db.database import SessionLocal
 from app.services.course_generator import CourseGenerator
 from app.worker.celery_app import celery_app

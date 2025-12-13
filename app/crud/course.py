@@ -1,10 +1,10 @@
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple
 
-from sqlalchemy import and_, asc, desc, func, or_
+from sqlalchemy import and_, desc, func, or_
 from sqlalchemy.orm import Session, joinedload
 
-from app.db.models import Course, Lesson, Module, User, UserCourse, UserProgress
+from app.db.models import Course, Module, UserCourse, UserProgress
 
 
 def create_course(
@@ -46,7 +46,7 @@ def get_courses_by_topic(db: Session, topic: str, limit: int = 20) -> List[Cours
     """Получить курсы по теме"""
     return (
         db.query(Course)
-        .filter(Course.topic.ilike(f"%{topic}%"), Course.is_public == True)
+        .filter(Course.topic.ilike(f"%{topic}%"), Course.is_public )
         .order_by(desc(Course.created_at))
         .limit(limit)
         .all()
@@ -58,7 +58,7 @@ def get_popular_courses(db: Session, limit: int = 10) -> List[Course]:
     return (
         db.query(Course)
         .outerjoin(UserCourse)
-        .filter(Course.is_public == True)
+        .filter(Course.is_public )
         .group_by(Course.id)
         .order_by(func.count(UserCourse.id).desc())
         .limit(limit)
@@ -72,7 +72,7 @@ def search_courses(db: Session, query: str, limit: int = 20) -> List[Course]:
         db.query(Course)
         .filter(
             and_(
-                Course.is_public == True,
+                Course.is_public ,
                 or_(
                     Course.title.ilike(f"%{query}%"),
                     Course.description.ilike(f"%{query}%"),
@@ -151,7 +151,7 @@ def update_course_progress(db: Session, user_id: int, course_id: int) -> UserCou
         db.query(UserProgress)
         .filter(
             UserProgress.user_id == user_id,
-            UserProgress.completed == True,
+            UserProgress.completed ,
             UserProgress.lesson_id.in_(
                 [lesson.id for module in course.modules for lesson in module.lessons]
             ),
@@ -186,7 +186,7 @@ def get_course_statistics(db: Session, course_id: int) -> Dict:
     # Количество завершивших
     completed = (
         db.query(UserCourse)
-        .filter(UserCourse.course_id == course_id, UserCourse.completed == True)
+        .filter(UserCourse.course_id == course_id, UserCourse.completed )
         .count()
     )
 

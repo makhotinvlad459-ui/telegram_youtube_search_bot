@@ -3,13 +3,12 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from datetime import datetime
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import Mock, patch
 
 import pytest
 from factories import UserFactory
 
-from app.db.models import Course, Lesson, Module
+from app.db.models import Course
 from app.services.course_generator import CourseGenerator
 from app.services.youtube_service import YouTubeService
 

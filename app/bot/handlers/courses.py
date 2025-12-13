@@ -9,10 +9,9 @@ from app.crud.course import (
     enroll_user_to_course,
     get_course_by_id,
     get_user_courses,
-    get_user_created_courses,
 )
 from app.crud.user import get_or_create_user, get_user_by_telegram_id
-from app.db.database import SessionLocal, get_db
+from app.db.database import get_db
 from app.worker.celery_app import celery_app
 from app.worker.tasks import generate_course_task
 

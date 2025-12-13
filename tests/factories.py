@@ -1,7 +1,7 @@
 import factory
 from factory.alchemy import SQLAlchemyModelFactory
 
-from app.db.models import Course, Lesson, Module, User
+from app.db.models import User
 
 
 class UserFactory(SQLAlchemyModelFactory):

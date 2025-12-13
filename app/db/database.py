@@ -22,15 +22,6 @@ Base = declarative_base()
 def init_db():
     """Инициализировать базу данных - создать все таблицы"""
     print("🗄️ Создание таблиц базы данных...")
-    from app.db.models import (
-        Course,
-        Lesson,
-        Module,
-        User,
-        UserCourse,
-        UserNotification,
-        UserProgress,
-    )
 
     Base.metadata.create_all(bind=engine)
     print("✅ Таблицы созданы")

@@ -85,7 +85,7 @@ class YouTubeService:
                     "view_count": view_count,
                     "like_count": like_count,
                 }
-        except:
+        except Exception as e:
             pass
         return None
 
@@ -94,7 +94,7 @@ class YouTubeService:
         try:
             duration = isodate.parse_duration(duration_str)
             return int(duration.total_seconds())
-        except:
+        except Exception as e:
             return 600
 
     def _get_mock_videos(self, query: str, max_results: int) -> List[Dict]:

@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 
-from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from app.db.models import User, UserCourse, UserProgress
