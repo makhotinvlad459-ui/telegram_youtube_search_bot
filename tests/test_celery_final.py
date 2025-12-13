@@ -6,7 +6,6 @@ sys.path.insert(0, project_root)
 
 from unittest.mock import Mock
 
-
 # ============ ИСПРАВЛЕННЫЕ ТЕСТЫ ============
 
 

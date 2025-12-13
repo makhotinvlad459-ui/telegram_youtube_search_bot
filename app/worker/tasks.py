@@ -1,7 +1,6 @@
 import logging
 import time
 
-
 from app.db.database import SessionLocal
 from app.services.course_generator import CourseGenerator
 from app.worker.celery_app import celery_app
