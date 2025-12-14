@@ -16,4 +16,4 @@ pydantic==2.5.0
 pydantic-settings==2.1.0
 nltk==3.8.1
 scikit-learn==1.4.0
-isodate>=0.6.1
+isodate>=0.6.1factory-boy==3.3.0

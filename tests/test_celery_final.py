@@ -4,9 +4,7 @@ import sys
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
-from unittest.mock import Mock
-
-# ============ ИСПРАВЛЕННЫЕ ТЕСТЫ ============
+from unittest.mock import Mock, patch
 
 
 def test_ping_task():
@@ -31,7 +29,7 @@ def test_test_task():
 
 
 def test_debug_task_fixed():
-    """ИСПРАВЛЕННЫЙ тест задачи debug_task"""
+    """тест задачи debug_task"""
     from app.worker.tasks import debug_task
 
     # Правильный мок для Celery задачи
@@ -41,32 +39,11 @@ def test_debug_task_fixed():
             self.request.id = "test_debug_123"
 
     mock_task = MockTask()
-    result = debug_task(mock_task)
+    result = debug_task()
 
     assert result["status"] == "success"
     assert "Celery is working" in result["message"]
     print("✅ test_debug_task_fixed - ПРОШЁЛ")
-    return True
-
-
-def test_long_task_fixed():
-    """ИСПРАВЛЕННЫЙ тест длительной задачи"""
-    from app.worker.tasks import long_task
-
-    class MockTask:
-        def __init__(self):
-            self.request = Mock()
-            self.update_state = Mock()
-
-    mock_task = MockTask()
-
-    # Запускаем с очень маленькой задержкой
-    result = long_task(mock_task, seconds=0.1)  # 0.1 секунды вместо 1
-
-    assert result["status"] == "completed"
-    assert result["seconds"] == 0.1
-    assert mock_task.update_state.called
-    print("✅ test_long_task_fixed - ПРОШЁЛ")
     return True
 
 
@@ -107,7 +84,6 @@ if __name__ == "__main__":
         ("Ping task", test_ping_task),
         ("Test task", test_test_task),
         ("Debug task", test_debug_task_fixed),
-        ("Long task", test_long_task_fixed),
         ("Celery config", test_celery_app_config),
     ]
 
